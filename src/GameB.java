@@ -103,8 +103,7 @@ public class GameB implements ActionListener, MouseListener
                 flashed=currentSequence.get(i);
                 dark=true;
                 i++;
-                System.out.println(i + " " + count + " " + currentSequence.size());
-              
+                
                 //end of sequence
                 if(i==currentSequence.size()){
                     playingSequence=false;
