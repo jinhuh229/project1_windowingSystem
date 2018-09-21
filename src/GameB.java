@@ -92,22 +92,25 @@ public class GameB implements ActionListener, MouseListener
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
+            //turns flash off everytime there is a flash
             if(dark==true){
                 flashed=0;
                 dark=false;
             }
             
+            //plays sequence from beginning
             else if(playingSequence==true && !dark){
                 flashed=currentSequence.get(i);
                 dark=true;
                 i++;
                 System.out.println(i + " " + count + " " + currentSequence.size());
               
+                //end of sequence
                 if(i==currentSequence.size()){
                     playingSequence=false;
                 }
             }
-            
+            //end of sequence, adds next sequence to currentSequence
             else if (playingSequence==false && !dark){
                 currentSequence.add(simonSequence.get(count));
                 count++;
