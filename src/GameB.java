@@ -1,7 +1,9 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Rubayth Haque, Alex Petros, Jin Huh"
+ * Project1. Simon Game
+ * 09/24/2018
+ * CSC 4380/6380 WINDOWING SYSTEMS PROGRAMMING
+ *
  */
 
 import java.awt.BasicStroke;
@@ -16,7 +18,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Random;import java.util.Random;
 import java.util.Random;
+
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,7 +53,7 @@ public class GameB implements ActionListener, MouseListener
 		panel = new myPanel();
                 
 
-		frame.setSize(WIDTH,1000);
+		frame.setSize(1550,1000);
 		frame.setVisible(true);
 		frame.addMouseListener(this);
 		frame.setResizable(false);
@@ -168,10 +172,37 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
                 g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", 1, 142));
+		
+                g.setFont(new Font("Arial", 1, 100));
+                g.drawString("Simon Game", 900, 150);
+                
+                
+                g.setFont(new Font("Arial", Font.BOLD, 30));
+                g.setColor(Color.GRAY);
+                g.drawString("Rubayth Haque, Alex Petros, Jin Huh", 900, 210);
+                
+                
+                g.setFont(new Font("Arial", 1, 30));
+                g.setColor(Color.BLACK);
+                g.drawString("How to Play: ", 900, 350);
+               
+                g.setFont(new Font("Arial", 1, 20));
+                g.drawString("Simon will give the first signal. Repaet the signal by pressing ", 900, 400);
+                g.drawString("the same color. Simon will duplicate the first signal and add one.", 900, 420);
+                g.drawString("Repeat these two signals by pressing the same color,in order", 900, 440);
+                g.drawString("Continue playing as long as you can repeat each sequence of", 900, 460);
+                g.drawString("signals correctly", 900, 480);
 
+                
+                
+                g.setColor(Color.BLUE);
+                g.setFont(new Font("Arial", 1, 20));
+                g.drawString("CSC 4380/6380 WINDOWING SYSTEMS PROGRAMMING,", 900, 750);
+                g.drawString("PROJECT 1", 900, 780);
           
 	}
+
+        
 
 	@Override
 	public void mousePressed(MouseEvent e)
