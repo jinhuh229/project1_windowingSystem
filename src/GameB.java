@@ -121,7 +121,7 @@ public class GameB implements ActionListener, MouseListener
             
             else if(userInput==true && playerSequence.isEmpty()==false ){
                 
-                dark=true;
+                //dark=true;
                 if (playerSequence.equals(currentSequence)){
                         playingSequence=true;
                         playerSequence.clear();
