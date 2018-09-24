@@ -6,7 +6,6 @@
  *
  */
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,15 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Random;import java.util.Random;
 import java.util.Random;
-
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 
@@ -46,27 +39,35 @@ public class GameB implements ActionListener, MouseListener
         ArrayList <Integer> currentSequence = new ArrayList<Integer>();
         ArrayList <Integer> playerSequence = new ArrayList<Integer>();
         
+        JButton b =new JButton("START");  
+       
+        
         public GameB() 
 	{
 		JFrame frame = new JFrame("Simon");
-		Timer timer = new Timer(200, this);
+		Timer timer = new Timer(300, this);
 		panel = new myPanel();
                 
-<<<<<<< HEAD
-		frame.setSize(800,1200);
-=======
 
-		frame.setSize(1550,1000);
->>>>>>> 958c397f2f1f7857bc65fa2f2d2df899dafa1a60
+		frame.setSize(800,1200);
 		frame.setVisible(true);
 		frame.addMouseListener(this);
 		frame.setResizable(false);
 		frame.add(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                               
+                
+                Dimension screen = Toolkit.getDefaultToolkit().getScreenSize();
+                int x = (int) ((screen.getWidth() - frame.getWidth()) /2);
+                int y = (int) ((screen.getHeight() -frame.getHeight()) /2);
+                frame.setLocation(x, y); 
+                   
                 timer.start();
                 run();
-		
+                
+                b.setBounds(50,100,95,30); 
+                panel.add(b);
+                
+                b.addActionListener(new Action1());
 	}
         
       
@@ -78,6 +79,7 @@ public class GameB implements ActionListener, MouseListener
             flashed = 0; count=0; i=0; currentSize=0; check=-1;
             gameOver=false; mousePress=false; playingSequence=true;
             dark=false; userInput=false;
+            
         }
         
         public void createSequence(){
@@ -94,10 +96,16 @@ public class GameB implements ActionListener, MouseListener
 		newSimon = new GameB();
 	}
 
+        
+        static class Action1 implements ActionListener{
+            public void actionPerformed(ActionEvent e){
+                newSimon.run();
+            }
+        }
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
-            System.out.println("check");
             //turns flash off everytime there is a flash
             if(dark==true){
                 flashed=0;
@@ -127,6 +135,7 @@ public class GameB implements ActionListener, MouseListener
             else if(userInput==true && playerSequence.isEmpty()==false ){
                 
                 //dark=true;
+                try{
                 if (playerSequence.equals(currentSequence)){
                         playingSequence=true;
                         playerSequence.clear();
@@ -134,11 +143,15 @@ public class GameB implements ActionListener, MouseListener
                         check=-1;
                         currentSequence.add(simonSequence.get(count));
                         }
+               
                 else if (playerSequence.get(check)!=currentSequence.get(check) &&
                         check<currentSize){
                         gameOver=true;
-                        run();
                     }
+                }
+                catch(java.lang.IndexOutOfBoundsException a ){
+                    gameOver=true;
+                }
             }
             panel.repaint();
 	}
@@ -182,15 +195,15 @@ public class GameB implements ActionListener, MouseListener
 		}
 
 		g.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
-                g.setColor(Color.BLACK);
-
-                
+            
                 if (gameOver==true){
                     
                     g.setColor(Color.red);
                     g.fillRect(WIDTH,HEIGHT, WIDTH, HEIGHT);
-                    System.out.println(gameOver);
-                    //g.drawString("WRONG", WIDTH / 8 , HEIGHT / 2 + 42);
+                    g.setColor(Color.BLACK);
+                    g.setFont(new Font("Arial", 1, 120));
+                    g.drawString("GAME OVER", WIDTH / 22 , HEIGHT / 2 + 42);
+                    //run();
 		}
 		
                 /*g.setFont(new Font("Arial", 1, 100));
