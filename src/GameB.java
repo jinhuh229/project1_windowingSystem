@@ -214,6 +214,26 @@ public class GameB implements ActionListener, MouseListener
                     //run();
 		}
 		
+		            g.setFont(new Font("Arial", 1, 30));
+                g.drawString("Simon Game", 300, 830);
+                
+                
+                g.setFont(new Font("Arial", Font.BOLD, 20));
+                g.setColor(Color.GRAY);
+                g.drawString("Rubayth Haque, Alex Petros, Jin Huh", 220, 870);
+                
+                                
+                g.setFont(new Font("Arial", 1, 20));
+               
+                g.setColor(Color.BLACK);
+                g.drawString("How to Play: ", 0, 900);
+               
+                g.setFont(new Font("Arial", 1, 13));
+                g.drawString("Simon will give the first signal. Repaet the signal by pressing ", 50, 920);
+                g.drawString("the same color. Simon will duplicate the first signal and add one.", 50, 940);
+                g.drawString("Repeat these two signals by pressing the same color,in order", 50, 960);
+                g.drawString("Continue playing as long as you can repeat each sequence of signals correctly", 50, 980);
+		
                 /*g.setFont(new Font("Arial", 1, 100));
 
 		
