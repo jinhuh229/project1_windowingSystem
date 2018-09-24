@@ -64,7 +64,8 @@ public class GameB implements ActionListener, MouseListener
                 timer.start();
                 run();
                 
-                b.setBounds(50,100,95,30); 
+                panel.setLayout(null);
+                b.setBounds(358, 381, 80, 20);
                 panel.add(b);
                 
                 b.addActionListener(new Action1());
