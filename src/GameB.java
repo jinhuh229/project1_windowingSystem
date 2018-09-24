@@ -28,10 +28,10 @@ public class GameB implements ActionListener, MouseListener
 
 	public static GameB newSimon;
         public myPanel panel;
+        public Random r;
         public static final int WIDTH = 800, HEIGHT = 800;
         public int flashed, count, i, currentSize, check;
-        public Random r;
-        private boolean gameOver, mousePress, playingSequence, dark, userInput;
+        private boolean gameOver, playingSequence, dark, userInput;
        
         
         int randColor[] = {1, 2, 3, 4};
@@ -62,7 +62,7 @@ public class GameB implements ActionListener, MouseListener
                 frame.setLocation(x, y); 
                    
                 timer.start();
-                run();
+                
                 
                 b.setBounds(50,100,95,30); 
                 panel.add(b);
@@ -73,13 +73,13 @@ public class GameB implements ActionListener, MouseListener
       
         public void run() {
             r = new Random(System.currentTimeMillis());
+            System.out.println(System.currentTimeMillis());
             currentSequence.clear();
             playerSequence.clear();
             createSequence();
             flashed = 0; count=0; i=0; currentSize=0; check=-1;
-            gameOver=false; mousePress=false; playingSequence=true;
+            gameOver=false;playingSequence=true;
             dark=false; userInput=false;
-            
         }
         
         public void createSequence(){
@@ -96,13 +96,14 @@ public class GameB implements ActionListener, MouseListener
 		newSimon = new GameB();
 	}
 
-        
+        //actionlistner for start button
         static class Action1 implements ActionListener{
             public void actionPerformed(ActionEvent e){
                 newSimon.run();
             }
         }
 
+        //method always running based on timer
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
@@ -121,20 +122,17 @@ public class GameB implements ActionListener, MouseListener
                 //end of sequence
                 if(i==currentSequence.size()){
                     playingSequence=false;
+                    userInput=true;
                 }
             }
-            //end of sequence, adds next sequence to currentSequence
-            else if (playingSequence==false && !dark && userInput==false){
+            //checks user input, either gameover or gets ready for next sequence
+            else if(userInput==true && playerSequence.isEmpty()==false ){
                 currentSize=currentSequence.size();
-                
                 count++;
                 i=0;
-                userInput=true;
-            }
-            
-            else if(userInput==true && playerSequence.isEmpty()==false ){
                 
-                //dark=true;
+                //dark=true;  --buggy
+                
                 try{
                 if (playerSequence.equals(currentSequence)){
                         playingSequence=true;
@@ -156,7 +154,7 @@ public class GameB implements ActionListener, MouseListener
             panel.repaint();
 	}
 
-	public void paint(Graphics2D g)
+	public void paint(Graphics2D g) //draws everything
 	{
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -238,18 +236,11 @@ public class GameB implements ActionListener, MouseListener
                 g.drawString("PROJECT 1", 900, 780);
 
           */
-
-          
-
 	}
-
         
-
 	@Override
-	public void mousePressed(MouseEvent e)
+	public void mousePressed(MouseEvent e) //detects if clicked on a square
 	{
-            
-            mousePress=true;
             int x = e.getX(), y = e.getY();
              if (x > 0 && x < WIDTH / 2 && y > 0 && y < HEIGHT / 2){
                 flashed=1;
