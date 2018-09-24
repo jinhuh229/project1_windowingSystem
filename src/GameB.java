@@ -52,7 +52,12 @@ public class GameB implements ActionListener, MouseListener
 		Timer timer = new Timer(200, this);
 		panel = new myPanel();
                 
+<<<<<<< HEAD
 		frame.setSize(800,1200);
+=======
+
+		frame.setSize(1550,1000);
+>>>>>>> 958c397f2f1f7857bc65fa2f2d2df899dafa1a60
 		frame.setVisible(true);
 		frame.addMouseListener(this);
 		frame.setResizable(false);
@@ -178,6 +183,7 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
                 g.setColor(Color.BLACK);
+
                 
                 if (gameOver==true){
                     
@@ -188,6 +194,10 @@ public class GameB implements ActionListener, MouseListener
 		}
 		
                 /*g.setFont(new Font("Arial", 1, 100));
+
+		
+                g.setFont(new Font("Arial", 1, 100));
+
                 g.drawString("Simon Game", 900, 150);
                 
                 
@@ -213,7 +223,11 @@ public class GameB implements ActionListener, MouseListener
                 g.setFont(new Font("Arial", 1, 20));
                 g.drawString("CSC 4380/6380 WINDOWING SYSTEMS PROGRAMMING,", 900, 750);
                 g.drawString("PROJECT 1", 900, 780);
+
           */
+
+          
+
 	}
 
         
