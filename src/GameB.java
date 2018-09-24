@@ -1,5 +1,4 @@
-/*
- * Rubayth Haque, Alex Petros, Jin Huh"
+/* * Rubayth Haque, Alex Petros, Jin Huh"
  * Project1. Simon Game
  * 09/24/2018
  * CSC 4380/6380 WINDOWING SYSTEMS PROGRAMMING
