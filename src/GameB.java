@@ -196,11 +196,19 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
             
+                
+                
+                g.setColor(Color.BLACK);
+		g.fillRect(380, 0, WIDTH / 30, HEIGHT);
+		g.fillRect(0, 380, WIDTH, HEIGHT / 30);
+
                 if (gameOver==true){
                     
+ 
+                
                     g.setColor(Color.red);
                     g.fillRect(WIDTH,HEIGHT, WIDTH, HEIGHT);
-                    g.setColor(Color.BLACK);
+                    g.setColor(Color.ORANGE);
                     g.setFont(new Font("Arial", 1, 120));
                     g.drawString("GAME OVER", WIDTH / 22 , HEIGHT / 2 + 42);
                     //run();
@@ -238,6 +246,9 @@ public class GameB implements ActionListener, MouseListener
                 g.drawString("PROJECT 1", 900, 780);
 
           */
+
+
+                
 
           
 
