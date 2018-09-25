@@ -20,6 +20,8 @@ import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.Timer;
+import java.io.IOException;
+
 
 
 public class GameB implements ActionListener, MouseListener
@@ -29,7 +31,7 @@ public class GameB implements ActionListener, MouseListener
         public myPanel panel;
         public Random r;
         public static final int WIDTH = 800, HEIGHT = 800;
-        public int flashed, count, i, currentSize, check;
+        public int lit, count, i, currentSize, check;
         private boolean gameOver, playingSequence, dark, userInput;
        
         
@@ -62,23 +64,23 @@ public class GameB implements ActionListener, MouseListener
                    
                 timer.start();
                 
-                
-                b.setBounds(50,100,95,30); 
+                panel.setLayout(null);
+                b.setBounds(358, 381, 80, 20);
                 panel.add(b);
                 
                 b.addActionListener(new Action1());
 	}
         
       
-        public void run() {
+        public void run(){
             r = new Random(System.currentTimeMillis());
-            System.out.println(System.currentTimeMillis());
             currentSequence.clear();
             playerSequence.clear();
             createSequence();
-            flashed = 0; count=0; i=0; currentSize=0; check=-1;
+            lit = 0; count=0; i=0; currentSize=0; check=-1;
             gameOver=false;playingSequence=true;
             dark=false; userInput=false;
+            b.setVisible(false);
         }
         
         public void createSequence(){
@@ -97,7 +99,9 @@ public class GameB implements ActionListener, MouseListener
 
         //actionlistner for start button
         static class Action1 implements ActionListener{
+            @Override
             public void actionPerformed(ActionEvent e){
+              
                 newSimon.run();
             }
         }
@@ -108,13 +112,13 @@ public class GameB implements ActionListener, MouseListener
 	{
             //turns flash off everytime there is a flash
             if(dark==true){
-                flashed=0;
+                lit=0;
                 dark=false;
             }
             
             //plays sequence from beginning
-            else if(playingSequence==true && !dark){
-                flashed=currentSequence.get(i);
+            else if(playingSequence==true ){
+                lit=currentSequence.get(i);
                 dark=true;
                 i++;
                 
@@ -129,8 +133,9 @@ public class GameB implements ActionListener, MouseListener
                 currentSize=currentSequence.size();
                 count++;
                 i=0;
-                
-                //dark=true;  --buggy
+                if (lit>0){
+                  dark=true;
+                }
                 
                 try{
                 if (playerSequence.equals(currentSequence)){
@@ -144,10 +149,14 @@ public class GameB implements ActionListener, MouseListener
                 else if (playerSequence.get(check)!=currentSequence.get(check) &&
                         check<currentSize){
                         gameOver=true;
+                        b.setText("PLAY AGAIN");
+                        b.setVisible(true);
                     }
                 }
                 catch(java.lang.IndexOutOfBoundsException a ){
                     gameOver=true;
+                    b.setText("PLAY AGAIN");
+                    b.setVisible(true);
                 }
             }
             panel.repaint();
@@ -157,7 +166,7 @@ public class GameB implements ActionListener, MouseListener
 	{
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-		if (flashed == 1){
+		if (lit == 1){
                     g.setColor(Color.GREEN);
 		}
 		else{
@@ -166,7 +175,7 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(0, 0, WIDTH / 2, HEIGHT / 2);
 
-		if (flashed == 2){
+		if (lit == 2){
                     g.setColor(Color.RED);
 		}
 		else{
@@ -175,7 +184,7 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(WIDTH / 2, 0, WIDTH / 2, HEIGHT / 2);
 
-		if (flashed == 3){
+		if (lit == 3){
                     g.setColor(Color.ORANGE);
 		}
 		else{
@@ -184,7 +193,7 @@ public class GameB implements ActionListener, MouseListener
 
 		g.fillRect(0, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
 
-		if (flashed == 4){
+		if (lit == 4){
                     g.setColor(Color.BLUE);
 		}
 		else{
@@ -192,74 +201,66 @@ public class GameB implements ActionListener, MouseListener
 		}
 
 		g.fillRect(WIDTH / 2, HEIGHT / 2, WIDTH / 2, HEIGHT / 2);
-            
+                //border
+                g.setColor(Color.BLACK);
+		g.fillRect(380, 0, WIDTH / 30, HEIGHT);
+		g.fillRect(0, 380, WIDTH, HEIGHT / 30);
+
                 if (gameOver==true){
-                    
-                    g.setColor(Color.red);
-                    g.fillRect(WIDTH,HEIGHT, WIDTH, HEIGHT);
                     g.setColor(Color.BLACK);
+                    g.fillRect(0,0, WIDTH, HEIGHT);
+                    g.setColor(Color.RED);
                     g.setFont(new Font("Arial", 1, 120));
-                    g.drawString("GAME OVER", WIDTH / 22 , HEIGHT / 2 + 42);
-                    //run();
+                    g.drawString("WRONG", WIDTH / 5 , 200);
+                    g.drawString("GAME OVER", WIDTH / 22 , 600);
 		}
 		
-                /*g.setFont(new Font("Arial", 1, 100));
-
-		
-                g.setFont(new Font("Arial", 1, 100));
-
-                g.drawString("Simon Game", 900, 150);
+		g.setFont(new Font("Arial", 1, 30));
+                g.drawString("Simon Game", 300, 830);
                 
                 
-                g.setFont(new Font("Arial", Font.BOLD, 30));
+                g.setFont(new Font("Arial", Font.BOLD, 20));
                 g.setColor(Color.GRAY);
-                g.drawString("Rubayth Haque, Alex Petros, Jin Huh", 900, 210);
+                g.drawString("Rubayth Haque, Alex Petros, Jin Huh", 220, 850);
                 
-                
-                g.setFont(new Font("Arial", 1, 30));
-                g.setColor(Color.BLACK);
-                g.drawString("How to Play: ", 900, 350);
+                                
+                g.setFont(new Font("Arial", 1, 20));
                
-                g.setFont(new Font("Arial", 1, 20));
-                g.drawString("Simon will give the first signal. Repaet the signal by pressing ", 900, 400);
-                g.drawString("the same color. Simon will duplicate the first signal and add one.", 900, 420);
-                g.drawString("Repeat these two signals by pressing the same color,in order", 900, 440);
-                g.drawString("Continue playing as long as you can repeat each sequence of", 900, 460);
-                g.drawString("signals correctly", 900, 480);
-
-                
-                
-                g.setColor(Color.BLUE);
-                g.setFont(new Font("Arial", 1, 20));
-                g.drawString("CSC 4380/6380 WINDOWING SYSTEMS PROGRAMMING,", 900, 750);
-                g.drawString("PROJECT 1", 900, 780);
-
-          */
+                g.setColor(Color.BLACK);
+                g.drawString("How to Play: ", 0, 870);
+               
+                g.setFont(new Font("Arial", 1, 13));
+                g.drawString("Simon will give the first signal. Repaet the signal by pressing ", 50, 885);
+                g.drawString("the same color. Simon will duplicate the first signal and add one.", 50, 900);
+                g.drawString("Repeat these two signals by pressing the same color,in order", 50, 915);
+                g.drawString("Continue playing as long as you can repeat each sequence of signals correctly", 50, 930);
+		
 	}
         
 	@Override
-	public void mousePressed(MouseEvent e) //detects if clicked on a square
-	{
+	public void mousePressed(MouseEvent e){ //detects if clicked on a square
             int x = e.getX(), y = e.getY();
-             if (x > 0 && x < WIDTH / 2 && y > 0 && y < HEIGHT / 2){
-                flashed=1;
-                playerSequence.add(1);
-                check++;
-             }
-            else if (x > WIDTH / 2 && x < WIDTH && y > 0 && y < HEIGHT / 2){
-                flashed=2;
-                playerSequence.add(2);
-                check++;
-            }
-            else if (x > 0 && x < WIDTH / 2 && y > HEIGHT / 2 && y < HEIGHT){
-                flashed=3;
-                playerSequence.add(3);
-                check++;
-            }
-            if (x > WIDTH / 2 && x < WIDTH && y > HEIGHT / 2 && y < HEIGHT){
-                flashed=4;
-                playerSequence.add(4);
-                check++;
+            if(userInput==true){
+                if (x > 0 && x < WIDTH / 2 && y > 0 && y < HEIGHT / 2){
+                   lit=1;
+                   playerSequence.add(1);
+                   check++;
+                }
+                else if (x > WIDTH / 2 && x < WIDTH && y > 0 && y < HEIGHT / 2){
+                   lit=2;
+                   playerSequence.add(2);
+                   check++;
+               }
+                else if (x > 0 && x < WIDTH / 2 && y > HEIGHT / 2 && y < HEIGHT){
+                   lit=3;
+                   playerSequence.add(3);
+                   check++;
+               }
+                if (x > WIDTH / 2 && x < WIDTH && y > HEIGHT / 2 && y < HEIGHT){
+                   lit=4;
+                   playerSequence.add(4);
+                   check++;
+               }
             }
 	}
 
